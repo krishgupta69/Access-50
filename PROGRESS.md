@@ -72,10 +72,3 @@ Status key: 🔲 Not started · 🔨 In progress · ✅ Shipped
 | 49 | DistractionBlur | 🔲 |
 | 50 | OneHandKeyboard | 🔲 |
 
----
-
-## Build log
-
-*(Newest first — add an entry every time you ship)*
-
-- **[date]** — Project started.
