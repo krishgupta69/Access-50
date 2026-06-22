@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="popup">
+      <header class="popup__header">
+        <h1 class="popup__title">BigCursor</h1>
+        <label class="switch" title="Enable BigCursor">
+          <input type="checkbox" id="enabled" />
+          <span class="switch__track"><span class="switch__thumb"></span></span>
+        </label>
+      </header>
+
+      <div class="controls" id="controls">
+        <div class="row">
+          <label class="row__label" for="cursorSize">Cursor size</label>
+          <span class="row__value" id="cursorSizeValue">48px</span>
+          <input class="slider" type="range" id="cursorSize" min="16" max="128" step="1" />
+        </div>
+
+        <div class="row">
+          <label class="row__label" for="haloSize">Halo size</label>
+          <span class="row__value" id="haloSizeValue">60px</span>
+          <input class="slider" type="range" id="haloSize" min="20" max="200" step="1" />
+        </div>
+
+        <div class="row">
+          <label class="row__label" for="haloOpacity">Halo opacity</label>
+          <span class="row__value" id="haloOpacityValue">50%</span>
+          <input class="slider" type="range" id="haloOpacity" min="0" max="1" step="0.05" />
+        </div>
+
+        <div class="row row--inline">
+          <label class="row__label" for="haloColor">Halo color</label>
+          <input class="color" type="color" id="haloColor" />
+        </div>
+      </div>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>
