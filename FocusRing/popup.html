@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FocusRing</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="popup">
+      <header class="popup__header">
+        <h1 class="popup__title">FocusRing</h1>
+        <label class="switch" title="On / off">
+          <input type="checkbox" id="enabled" aria-label="Enable focus ring" />
+        </label>
+      </header>
+
+      <div class="controls">
+        <div class="control control--row">
+          <label for="color">Color</label>
+          <input type="color" id="color" />
+        </div>
+
+        <div class="control">
+          <div class="control__head">
+            <label for="thickness">Thickness</label>
+            <span class="val" id="thickness-val">4px</span>
+          </div>
+          <input type="range" id="thickness" min="1" max="12" step="1" />
+        </div>
+
+        <div class="control">
+          <div class="control__head">
+            <label for="offset">Offset</label>
+            <span class="val" id="offset-val">2px</span>
+          </div>
+          <input type="range" id="offset" min="0" max="8" step="1" />
+        </div>
+
+        <div class="control control--row">
+          <label for="style">Style</label>
+          <select id="style">
+            <option value="solid">solid</option>
+            <option value="dashed">dashed</option>
+            <option value="double">double</option>
+          </select>
+        </div>
+
+        <div class="control control--row">
+          <label for="glow">Glow</label>
+          <label class="switch" title="Glow halo">
+            <input type="checkbox" id="glow" aria-label="Enable glow halo" />
+          </label>
+        </div>
+      </div>
+
+      <div class="preview">
+        <span class="preview__label">Preview — focus the button</span>
+        <button type="button" class="preview__btn">Tab to me</button>
+      </div>
+    </main>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "FocusRing",
+  "version": "1.0.0",
+  "description": "Forces a bold, high-contrast keyboard-focus outline on every interactive element of every website.",
+  "permissions": ["storage"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "16": "assets/icon16.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
+  }
+}
