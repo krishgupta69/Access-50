@@ -1,6 +1,6 @@
 # Access 50 — Progress Tracker
 
-**Started:** [add start date]
+**Started:** 21 06 2026
 **Shipped:** 0 / 50
 
 Status key: 🔲 Not started · 🔨 In progress · ✅ Shipped
@@ -11,8 +11,8 @@ Status key: 🔲 Not started · 🔨 In progress · ✅ Shipped
 
 | # | Extension | Status |
 |---|-----------|--------|
-| 1 | BigCursor | 🔲 |
-| 2 | FocusRing | 🔲 |
+| 1 | BigCursor | ✅ |
+| 2 | FocusRing | ✅ |
 | 3 | FatScrollbar | 🔲 |
 | 4 | GrayMode | 🔲 |
 | 5 | NoShorts | 🔲 |
