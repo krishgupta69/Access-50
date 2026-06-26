@@ -21,8 +21,8 @@ Accessibility tooling is dominated by paywalled suites and abandoned side projec
 
 | # | Extension | Helps | Status |
 |---|-----------|-------|--------|
-| 1 | BigCursor | Low vision, motor | 🔲 Not started |
-| 2 | FocusRing | Keyboard-only, low vision | 🔲 Not started |
+| 1 | BigCursor | Low vision, motor |    made |
+| 2 | FocusRing | Keyboard-only, low vision | made |
 | 3 | FatScrollbar | Motor, low vision | 🔲 Not started |
 | ... | ... | ... | ... |
 
