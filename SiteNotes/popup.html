@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SiteNotes</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main class="sitenotes-popup" role="main">
+    <h1 class="sitenotes-popup-title">SiteNotes</h1>
+
+    <!-- Shown only on non-http(s) pages where notes can't be added. -->
+    <p class="sitenotes-popup-blocked" id="sn-blocked" hidden>
+      Notes can't be added to this page.
+    </p>
+
+    <!-- Normal state, populated by popup.js. -->
+    <div class="sitenotes-popup-main" id="sn-main" hidden>
+      <p class="sitenotes-popup-count" id="sn-count" aria-live="polite">No notes yet</p>
+
+      <div class="sitenotes-popup-actions">
+        <button type="button" class="sitenotes-popup-btn sitenotes-popup-btn--primary"
+          id="sn-add" aria-label="Add a note to this page">
+          Add note to this page
+        </button>
+        <button type="button" class="sitenotes-popup-btn"
+          id="sn-toggle" aria-label="Hide or show all notes on this page">
+          Hide / show all notes
+        </button>
+      </div>
+
+      <p class="sitenotes-popup-hint" id="sn-hint" role="alert" hidden>
+        Couldn't reach this page. Reload the page, then try again.
+      </p>
+
+      <ul class="sitenotes-popup-list" id="sn-list" aria-label="Notes on this page"></ul>
+    </div>
+  </main>
+
+  <script src="storage.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
