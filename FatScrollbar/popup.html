@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FatScrollbar</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 360px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #1a1a2e;
+      color: #e0e0e0;
+      overflow: hidden;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 40%, #8b5cf6 100%);
+      padding: 16px 18px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo {
+      width: 42px;
+      height: 42px;
+      background: rgba(255,255,255,0.18);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1.5px solid rgba(255,255,255,0.28);
+    }
+    .logo svg {
+      width: 22px;
+      height: 22px;
+      fill: white;
+    }
+    .header-text .title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.3px;
+    }
+    .header-text .subtitle {
+      font-size: 11px;
+      color: rgba(255,255,255,0.72);
+      margin-top: 2px;
+    }
+
+    /* ── Scope Tabs ── */
+    .scope-tabs {
+      display: flex;
+      background: #16213e;
+      border-bottom: 1px solid #0f3460;
+    }
+    .scope-tab {
+      flex: 1;
+      padding: 11px 8px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: #6b7280;
+      border: none;
+      background: none;
+      cursor: pointer;
+      transition: color 0.15s;
+      position: relative;
+    }
+    .scope-tab.active {
+      color: #a78bfa;
+    }
+    .scope-tab.active::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #7c3aed;
+      border-radius: 2px 2px 0 0;
+    }
+
+    /* ── Body content ── */
+    .body {
+      padding: 16px 18px;
+      background: #1e1e2e;
+    }
+
+    /* ── Site badge ── */
+    .site-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #16213e;
+      border: 1px solid #2d3561;
+      border-radius: 20px;
+      padding: 7px 14px;
+      margin-bottom: 18px;
+      width: fit-content;
+    }
+    .site-badge svg {
+      width: 15px;
+      height: 15px;
+      fill: #a78bfa;
+      flex-shrink: 0;
+    }
+    .site-badge-text {
+      font-size: 12px;
+      font-weight: 600;
+      color: #c4b5fd;
+      max-width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* ── Control group ── */
+    .control-group {
+      margin-bottom: 6px;
+    }
+    .control-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #6b7280;
+      margin-bottom: 10px;
+    }
+    .control-value {
+      font-size: 14px;
+      font-weight: 700;
+      color: #e0e0e0;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    /* ── Slider ── */
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(to right, #7c3aed 30%, #2d3561 30%);
+      border-radius: 3px;
+      outline: none;
+      cursor: pointer;
+      margin-bottom: 18px;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      background: #fff;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 0 0 3px rgba(124,58,237,0.35), 0 2px 6px rgba(0,0,0,0.5);
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 22px;
+      height: 22px;
+      background: #fff;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 0 0 3px rgba(124,58,237,0.35), 0 2px 6px rgba(0,0,0,0.5);
+      border: none;
+    }
+
+    /* ── Preview bar ── */
+    .preview-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+    .preview {
+      height: 10px;
+      background: #2d3561;
+      border-radius: 5px;
+      margin-bottom: 18px;
+      overflow: hidden;
+      position: relative;
+    }
+    .preview-thumb {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 40%;
+      height: 100%;
+      background: #6b7280;
+      border-radius: 5px;
+      transition: width 0.12s, background 0.12s;
+    }
+
+    /* ── Toggle row ── */
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+    .toggle-label strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: #e0e0e0;
+      margin-bottom: 2px;
+    }
+    .toggle-label span {
+      font-size: 11px;
+      color: #6b7280;
+    }
+
+    /* iOS-style toggle */
+    .toggle {
+      position: relative;
+      width: 44px;
+      height: 26px;
+      flex-shrink: 0;
+    }
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .toggle-slider {
+      position: absolute;
+      inset: 0;
+      background: #374151;
+      border-radius: 26px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .toggle-slider::before {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      left: 3px;
+      top: 3px;
+      background: #9ca3af;
+      border-radius: 50%;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .toggle input:checked + .toggle-slider {
+      background: #5b21b6;
+    }
+    .toggle input:checked + .toggle-slider::before {
+      transform: translateX(18px);
+      background: #c4b5fd;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      height: 1px;
+      background: #2d3561;
+      margin-bottom: 16px;
+    }
+
+    /* ── Reset button ── */
+    .reset-btn {
+      width: 100%;
+      padding: 11px;
+      background: #16213e;
+      border: 1px solid #2d3561;
+      border-radius: 10px;
+      color: #9ca3af;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s, background 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .reset-btn:hover {
+      border-color: #7c3aed;
+      color: #c4b5fd;
+      background: #1e1535;
+    }
+    .reset-btn svg {
+      width: 13px;
+      height: 13px;
+      fill: currentColor;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="logo">
+      <!-- Scrollbar icon -->
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <rect x="9" y="2" width="6" height="20" rx="3"/>
+        <rect x="10.5" y="5" width="3" height="8" rx="1.5" fill="rgba(0,0,0,0.35)"/>
+      </svg>
+    </div>
+    <div class="header-text">
+      <div class="title">FatScrollbar</div>
+      <div class="subtitle">Scrollbar size &amp; contrast</div>
+    </div>
+  </div>
+
+  <!-- Scope Tabs -->
+  <div class="scope-tabs">
+    <button class="scope-tab active" id="tab-site">This Site</button>
+    <button class="scope-tab" id="tab-global">All Sites</button>
+  </div>
+
+  <!-- Body -->
+  <div class="body">
+
+    <!-- Site badge -->
+    <div class="site-badge">
+      <!-- Globe icon -->
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+      </svg>
+      <span class="site-badge-text" id="hostname">loading…</span>
+    </div>
+
+    <!-- Scrollbar Width slider -->
+    <div class="control-group">
+      <div class="control-label">
+        Scrollbar Width
+        <span class="control-value"><span id="size-val">20</span>px</span>
+      </div>
+      <input type="range" id="size-slider" min="8" max="48" value="20" step="2" />
+    </div>
+
+    <!-- Preview -->
+    <div class="preview-label">Preview</div>
+    <div class="preview">
+      <div class="preview-thumb" id="preview-thumb"></div>
+    </div>
+
+    <!-- High Contrast toggle -->
+    <div class="toggle-row">
+      <div class="toggle-label">
+        <strong>High Contrast</strong>
+        <span>Dark thumb on light track</span>
+      </div>
+      <label class="toggle">
+        <input type="checkbox" id="contrast-toggle" />
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Reset button -->
+    <button class="reset-btn" id="reset-btn">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.65 6.35A7.96 7.96 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0112 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+      </svg>
+      <span id="reset-btn-label">Reset this site to default</span>
+    </button>
+
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
